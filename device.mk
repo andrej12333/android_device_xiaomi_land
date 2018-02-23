@@ -183,7 +183,8 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.0-service.widevine \
-    libprotobuf-cpp-lite
+    libprotobuf-cpp-lite \
+    move_widevine_data.sh
 
 # Fingerprint
 PRODUCT_PACKAGES += \
