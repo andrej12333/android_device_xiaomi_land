@@ -521,7 +521,7 @@ on property:hw.fm.init=0
 on property:hw.fm.init=1
      write /sys/module/radio_iris_transport/parameters/fmsmd_set 1
 
-service port-bridge /system/vendor/bin/port-bridge
+service vendor.port-bridge /system/vendor/bin/port-bridge
     class main
     user radio system
     group radio system inet
@@ -529,17 +529,17 @@ service port-bridge /system/vendor/bin/port-bridge
     oneshot
 
 on property:persist.data.mode=tethered
-    start port-bridge
+    start vendor.port-bridge
 
 on property:persist.data.mode=concurrent
-    start port-bridge
+    start vendor.port-bridge
 
-service netmgrd /system/vendor/bin/netmgrd
+service vendor.netmgrd /system/vendor/bin/netmgrd
     class main
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
-    stop netmgrd
+    stop vendor.netmgrd
 
 service ipacm-diag /system/vendor/bin/ipacm-diag
     class main
