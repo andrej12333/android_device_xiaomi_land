@@ -222,7 +222,10 @@ on post-fs-data
     mkdir /data/hostapd 0770 system wifi
 
     # Create /data/time folder for time-services
-    mkdir /data/time/ 0700 system system
+    mkdir /data/vendor/time/ 0700 system system
+
+    #Start move time data to /data/vendor once post-fs-data done
+    start vendor.move_time_data
 
     mkdir /data/vendor/audio/ 0770 media audio
 
@@ -704,6 +707,13 @@ service time_daemon /system/vendor/bin/time_daemon
     class main
     user root
     group root
+
+service vendor.move_time_data /system/bin/move_time_data.sh
+    class main
+    user system
+    group system
+    disabled
+    oneshot
 
 service wcnss-service /system/vendor/bin/wcnss_service
     class main

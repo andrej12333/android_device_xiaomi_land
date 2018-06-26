@@ -68,6 +68,12 @@ LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR)
 include $(BUILD_PREBUILT)
 
 # Configuration scripts
+include $(CLEAR_VARS)
+LOCAL_MODULE       := move_time_data.sh
+LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_SRC_FILES    := move_time_data.sh
+include $(BUILD_PREBUILT)
 
 # Offmode charging
 include $(CLEAR_VARS)

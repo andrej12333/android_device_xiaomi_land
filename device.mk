@@ -243,6 +243,7 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc \
     init.qcom.usb.sh \
     init.qcom.sh \
+    move_time_data.sh \
     fstab.qcom
 
 PRODUCT_COPY_FILES += \
