@@ -327,7 +327,7 @@ vendor/lib64/libulp2.so
 vendor/lib64/libslimclient.so
 vendor/lib64/libxtadapter.so
 vendor/lib64/libxtwifi_ulp_adaptor.so
-vendor/lib64/vendor.qti.gnss@1.0_vendor.so
+vendor/lib64/vendor.qti.gnss@1.0_vendor.so|thesha1istreblesucks
 
 # Graphics - from marmite (Wileyfox Swift 2)
 lib/egl/libGLES_android.so
