@@ -53,6 +53,9 @@ TARGET_KERNEL_CONFIG 		:= land_defconfig
 TARGET_KERNEL_SOURCE 		:= kernel/xiaomi/msm8937
 TARGET_EXFAT_DRIVER		:= sdfat
 
+# GTFO
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+
 # ANT
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
 
