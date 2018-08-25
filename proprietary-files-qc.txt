@@ -257,11 +257,9 @@ vendor/lib64/vendor.qti.hardware.fm@1.0_vendor.so
 vendor/lib/hw/gatekeeper.msm8953.so:vendor/lib/hw/gatekeeper.msm8937.so
 vendor/lib64/hw/gatekeeper.msm8953.so:vendor/lib64/hw/gatekeeper.msm8937.so
 
-# GPS - from tissot (Mi A1)
-lib/vendor.qti.gnss@1.0.so
+# GPS - from LA.UM.7.2.r1-04500-sdm660.0
 lib/libxt_native.so
 lib/liblocationservice_jni.so
-lib64/vendor.qti.gnss@1.0.so
 lib64/libxt_native.so
 lib64/liblocationservice_jni.so
 etc/permissions/com.qti.location.sdk.xml
@@ -274,11 +272,8 @@ vendor/bin/loc_launcher
 vendor/bin/lowi-server
 vendor/bin/slim_daemon
 vendor/bin/xtra-daemon
-vendor/bin/hw/vendor.qti.gnss@1.0-service
-vendor/etc/init/vendor.qti.gnss@1.0-service.rc
 vendor/etc/cacert_location.pem
 vendor/etc/xtra_root_cert.pem
-vendor/lib/hw/vendor.qti.gnss@1.0-impl.so
 -vendor/lib/libloc_api_v02.so
 vendor/lib/libloc_ds_api.so
 vendor/lib/libalarmservice_jni.so
@@ -303,8 +298,6 @@ vendor/lib/libulp2.so
 vendor/lib/libslimclient.so
 vendor/lib/libxtadapter.so
 vendor/lib/libxtwifi_ulp_adaptor.so
-vendor/lib/vendor.qti.gnss@1.0_vendor.so
-vendor/lib64/hw/vendor.qti.gnss@1.0-impl.so
 -vendor/lib64/libloc_api_v02.so
 vendor/lib64/libloc_ds_api.so
 vendor/lib64/libalarmservice_jni.so
@@ -329,7 +322,20 @@ vendor/lib64/libulp2.so
 vendor/lib64/libslimclient.so
 vendor/lib64/libxtadapter.so
 vendor/lib64/libxtwifi_ulp_adaptor.so
-vendor/lib64/vendor.qti.gnss@1.0_vendor.so
+
+# GPS - GNSS - from LA.UM.7.2.r1-04500-sdm660.0
+vendor/bin/hw/vendor.qti.gnss@2.0-service
+vendor/etc/init/vendor.qti.gnss@2.0-service.rc
+vendor/lib/hw/vendor.qti.gnss@2.0-impl.so
+vendor/lib/vendor.qti.gnss@1.0.so
+vendor/lib/vendor.qti.gnss@1.1.so
+vendor/lib/vendor.qti.gnss@1.2.so
+vendor/lib/vendor.qti.gnss@2.0.so
+vendor/lib64/hw/vendor.qti.gnss@2.0-impl.so
+vendor/lib64/vendor.qti.gnss@1.0.so
+vendor/lib64/vendor.qti.gnss@1.1.so
+vendor/lib64/vendor.qti.gnss@1.2.so
+vendor/lib64/vendor.qti.gnss@2.0.so
 
 # Graphics - from marmite (Wileyfox Swift 2)
 lib/egl/libGLES_android.so
