@@ -24,3 +24,6 @@
 
 # Block devices
 /dev/block/bootdevice/by-name/persist		u:object_r:persist_block_device:s0
+
+# TEMPORARY - for Pre-P vendor blobs
+/data/connectivity(/.*)?              u:object_r:cnd_data_file:s0
