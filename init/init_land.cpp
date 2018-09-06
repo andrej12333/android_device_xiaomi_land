@@ -30,21 +30,19 @@
  */
 
 #include <android-base/file.h>
-#include <android-base/logging.h>
 #include <android-base/properties.h>
 #include <android-base/strings.h>
-#include <fcntl.h>
-#include <iostream>
-#include <sstream>
 #include <stdlib.h>
-#include <string>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 #include <sys/sysinfo.h>
 
-#include "log.h"
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+
 #include "property_service.h"
-#include "util.h"
 #include "vendor_init.h"
 
 using android::base::GetProperty;
@@ -52,14 +50,12 @@ using android::init::property_set;
 
 static std::string board_id;
 
-static void property_override(char const prop[], char const value[]) {
-    prop_info *pi;
-
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
-        __system_property_update(pi, value, strlen(value));
+static void property_override(const std::string& name, const std::string& value) {
+    prop_info* pi = (prop_info*) __system_property_find(prop);
+    if (pi != nullptr)
+        __system_property_update(pi, value.c_str(), value.length());
     else
-        __system_property_add(prop, strlen(prop), value, strlen(value));
+        __system_property_add(prop.c_str(), prop.length(), value.c_str(), value.length());
 }
 
 static bool is3GBram() {
@@ -75,7 +71,7 @@ static void import_kernel_cmdline_land(bool in_qemu,
     for (const auto& entry : android::base::Split(android::base::Trim(cmdline), " ")) {
         std::vector<std::string> pieces = android::base::Split(entry, "=");
         /* The board_id entry has two equal signs, so accept more than two pieces */
-        if (pieces.size() >= 2) { // original -> == 2
+        if (pieces.size() >= 2) {  // original -> == 2
             fn(pieces[0], pieces[1], in_qemu);
         }
     }
@@ -114,11 +110,11 @@ static void set_ramconfig() {
 }
 
 static void init_alarm_boot_properties() {
-    char const *boot_reason_file = "/proc/sys/kernel/boot_reason";
-    char const *power_off_alarm_file = "/persist/alarm/powerOffAlarmSet";
+    const std::string boot_reason_file = "/proc/sys/kernel/boot_reason";
+    const std::string power_off_alarm_file = "/persist/alarm/powerOffAlarmSet";
     std::string boot_reason;
     std::string power_off_alarm;
-    std::string reboot_reason = GetProperty("ro.boot.alarmboot","");
+    bool isAlarmBoot = GetBoolProperty("ro.boot.alarmboot", false);
 
     if (android::base::ReadFileToString(boot_reason_file, &boot_reason)
             && android::base::ReadFileToString(power_off_alarm_file, &power_off_alarm)) {
@@ -137,7 +133,7 @@ static void init_alarm_boot_properties() {
          * 7 -> CBLPWR_N pin toggled (for external power supply)
          * 8 -> KPDPWR_N pin toggled (power key pressed)
          */
-         if ((android::base::Trim(boot_reason) == "3" || reboot_reason == "true")
+         if ((android::base::Trim(boot_reason) == "3" || isAlarmBoot)
                  && android::base::Trim(power_off_alarm) == "1") {
              property_set("ro.alarm_boot", "true");
          } else {
@@ -155,7 +151,7 @@ static void variant_properties() {
     import_kernel_cmdline_land(false, parse_cmdline_boardid);
 
     // Set board id
-    property_set("ro.product.wt.boardid", board_id.c_str());
+    property_set("ro.product.wt.boardid", board_id);
 
     // Set variant based on board_id
     if (board_id == "S88537AB1") {
