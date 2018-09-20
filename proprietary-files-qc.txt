@@ -375,7 +375,6 @@ vendor/lib/libOpenCL.so
 vendor/lib/librs_adreno_sha1.so
 vendor/lib/librs_adreno.so
 vendor/lib/libRSDriver_adreno.so
-vendor/lib/libscalar.so
 vendor/lib64/egl/eglSubDriverAndroid.so
 vendor/lib64/egl/eglsubAndroid.so
 vendor/lib64/egl/libEGL_adreno.so
@@ -411,18 +410,20 @@ vendor/lib64/libOpenCL.so
 vendor/lib64/librs_adreno_sha1.so
 vendor/lib64/librs_adreno.so
 vendor/lib64/libRSDriver_adreno.so
-vendor/lib64/libscalar.so
 
-# Graphics - SDM - from marmite (Wileyfox Swift 2)
-lib/libsd_sdk_display.so
+# Graphics - SDM - from LA.UM.7.2.r1-04500-sdm660.0
+# fail libqseed3 dlopen to mark QSEED3 unsupported
 lib/libsdm-disp-apis.so
-lib64/libsd_sdk_display.so
 lib64/libsdm-disp-apis.so
+# vendor/lib/libqseed3.so
+vendor/lib/libscalar.so
 vendor/lib/libsdm-color.so
 vendor/lib/libsdm-diag.so
 -vendor/lib/libsdm-disp-vndapis.so
 vendor/lib/libsdmextension.so
 vendor/lib/libtinyxml2_1.so
+# vendor/lib64/libqseed3.so
+vendor/lib64/libscalar.so
 vendor/lib64/libsdm-color.so
 vendor/lib64/libsdm-diag.so
 -vendor/lib64/libsdm-disp-vndapis.so
