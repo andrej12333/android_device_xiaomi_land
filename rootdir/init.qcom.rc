@@ -524,10 +524,6 @@ on property:hw.fm.init=0
 on property:hw.fm.init=1
      write /sys/module/radio_iris_transport/parameters/fmsmd_set 1
 
-# This is added for compatibilty between O-MR1 HIDL BT and P libbt-vendor
-on property:ro.boot.btmacaddr=*
-    setprop ro.vendor.boot.btmacaddr ${ro.boot.btmacaddr}
-
 service vendor.port-bridge /system/vendor/bin/port-bridge
     class main
     user radio system
