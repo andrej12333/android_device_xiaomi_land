@@ -109,39 +109,6 @@ static void set_ramconfig() {
     }
 }
 
-static void init_alarm_boot_properties() {
-    const std::string boot_reason_file = "/proc/sys/kernel/boot_reason";
-    const std::string power_off_alarm_file = "/persist/alarm/powerOffAlarmSet";
-    std::string boot_reason;
-    std::string power_off_alarm;
-    bool isAlarmBoot = GetBoolProperty("ro.boot.alarmboot", false);
-
-    if (android::base::ReadFileToString(boot_reason_file, &boot_reason)
-            && android::base::ReadFileToString(power_off_alarm_file, &power_off_alarm)) {
-        /*
-         * Setup ro.alarm_boot value to true when it is RTC triggered boot up
-         * For existing PMIC chips, the following mapping applies
-         * for the value of boot_reason:
-         *
-         * 0 -> unknown
-         * 1 -> hard reset
-         * 2 -> sudden momentary power loss (SMPL)
-         * 3 -> real time clock (RTC)
-         * 4 -> DC charger inserted
-         * 5 -> USB charger inserted
-         * 6 -> PON1 pin toggled (for secondary PMICs)
-         * 7 -> CBLPWR_N pin toggled (for external power supply)
-         * 8 -> KPDPWR_N pin toggled (power key pressed)
-         */
-         if ((android::base::Trim(boot_reason) == "3" || isAlarmBoot)
-                 && android::base::Trim(power_off_alarm) == "1") {
-             property_set("ro.alarm_boot", "true");
-         } else {
-             property_set("ro.alarm_boot", "false");
-         }
-    }
-}
-
 static void variant_properties() {
     std::string product = GetProperty("ro.product.name", "");
     if (product.find("land") == std::string::npos)
@@ -165,6 +132,5 @@ static void variant_properties() {
 
 void vendor_load_properties() {
     set_ramconfig();
-    init_alarm_boot_properties();
     variant_properties();
 }
