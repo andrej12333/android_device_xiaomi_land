@@ -182,9 +182,6 @@ on post-fs-data
     # Create directory for radio
     mkdir /data/vendor/radio 0770 system radio
 
-    # Create dir for fpc
-    mkdir /data/fpc 0770 system system
-
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
     chown root system /persist
@@ -428,18 +425,6 @@ on boot
     # bond0 used by FST Manager
     chown wifi wifi /sys/class/net/bond0/bonding/queue_id
 
-    # fingerprint permissions
-    chown system system /sys/devices/soc/soc:fpc1020/compatible_all
-    chmod 0664 /sys/devices/soc/soc:fpc1020/compatible_all
-    chown system system /sys/devices/soc/soc:fpc1020/irq
-    chmod 0660 /sys/devices/soc/soc:fpc1020/irq
-    chown system system /sys/devices/soc/soc:fpc1020/hw_reset
-    chmod 0660 /sys/devices/soc/soc:fpc1020/hw_reset
-    chown system system /sys/devices/soc/soc:fpc1020/wakeup_enable
-    chmod 0660 /sys/devices/soc/soc:fpc1020/wakeup_enable
-    chown system system /sys/devices/soc/soc:fpc1020/spi_prepare
-    chmod 0660 /sys/devices/soc/soc:fpc1020/spi_prepare
-
     chown root system /sys/class/leds/red/blink
     chown root system /sys/class/leds/green/blink
     chown root system /sys/class/leds/blue/blink
@@ -447,16 +432,6 @@ on boot
     # IR blaster
     chown root system /sys/class/leds/infrared/transmit
     chown root system /sys/class/leds/infrared/brightness
-
-    # Goodix Fingerprint
-    chown system system /dev/goodix_fp
-    chmod 0644 /dev/goodix_fp
-
-    rm /data/property/persist.sys.fp.vendor
-    rm /data/property/persist.sys.fp.goodix
-    rm /data/property/persist.sys.fp.onstart
-    setprop persist.sys.fp.vendor none
-    start gx_fpd
 
 service iop /vendor/bin/iop
     class main
@@ -822,21 +797,3 @@ service mdtpd /system/vendor/bin/mdtpd
     class late_start
     user root
     group system radio drmrpc
-
-service gx_fpd /vendor/bin/gx_fpd
-    class core
-    user root
-    group system system
-    disabled
-
-on property:persist.sys.fp.vendor=switchf
-    stop gx_fpd
-    setprop persist.sys.fp.vendor searchf
-    setprop ro.hardware.fingerprint searchf
-    setprop ro.boot.fpsensor fpc
-    start fps_hal
-
-on property:persist.sys.fp.onstart=1
-    setprop ro.hardware.fingerprint goodix
-    setprop ro.boot.fpsensor gdx
-    start fps_hal
