@@ -241,6 +241,7 @@ PRODUCT_PACKAGES += \
     init.qcom.power.rc \
     init.qcom.usb.rc \
     ueventd.qcom.rc \
+    init.qcom.post_boot.sh \
     init.qcom.usb.sh \
     init.qcom.sh \
     move_time_data.sh \
